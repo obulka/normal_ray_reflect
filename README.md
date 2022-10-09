@@ -1,6 +1,6 @@
 # normal_ray_reflect
 
-This gizmo allows you to reflect, diffuse, and transmit rays using a normals pass and an HDRI.
+This gizmo allows you to reflect, diffuse, and refract rays using a normals pass and an HDRI.
 
 ## Setup
 
@@ -13,7 +13,7 @@ Simply clone/download this repo and add the following line to your `init.py`: `n
 - camera
   - The camera to shoot rays out of
 - normals
-  - The normals pass that will be used to reflect, transmit, and diffuse the rays
+  - The normals pass that will be used to reflect, refract, and diffuse the rays
 - surface
   - The surface properties at each pixel location
   - R is specular
