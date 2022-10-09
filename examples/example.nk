@@ -32,7 +32,7 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
 }
 Root {
  inputs 0
- name /home/ob1/software/nuke/dev/normal_ray_reflect/examples/test_script.nk
+ name /home/ob1/software/nuke/dev/normal_ray_reflect/examples/example.nk
  frame 75
  format "2048 1556 0 0 2048 1556 1 2K_Super_35(full-ap)"
  proxy_type scale
@@ -72,7 +72,7 @@ Constant {
  xpos 625
  ypos -423
 }
-set N9768c40 [stack 0]
+set N8ca8970 [stack 0]
 Noise {
  inputs 0
  size 265
@@ -151,7 +151,7 @@ Dot {
  xpos 551
  ypos -283
 }
-push $N9768c40
+push $N8ca8970
 Dot {
  name Dot3
  xpos 659

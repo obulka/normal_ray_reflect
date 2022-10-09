@@ -12,7 +12,7 @@ Gizmo {
  addUserKnob {26 ""}
  addUserKnob {7 hdri_offset l "HDRI Offset Angle" t "Rotate the HDRI by this angle." R 0 360}
  addUserKnob {26 ""}
- addUserKnob {26 INFO l "" +STARTLINE T "v1.0 - (c) Owen Bulka and Riley Gray - 2022 "}
+ addUserKnob {26 INFO l "" +STARTLINE T "v1.0.0 - (c) Owen Bulka and Riley Gray - 2022 "}
 }
  BackdropNode {
   inputs 0
