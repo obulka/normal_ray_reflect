@@ -4,7 +4,7 @@ This gizmo allows you to reflect, diffuse, and transmit rays using a normals pas
 
 ## Setup
 
-Simply clone/download this repo and add the following line to your `init.py`: `nuke.pluginAddPath("/path/to/normal_ray_reflect/src/python")`, replacing "`/path/to`" with the actual path to the repository. The gizmo will be available as "N_RayReflect" the next time you launch Nuke.
+Simply clone/download this repo and add the following line to your `init.py`: `nuke.pluginAddPath("/path/to/normal_ray_reflect/src/python")`, replacing "`/path/to`" with the actual path to the repository. The gizmo will be available as "N_RayReflect" the next time you launch Nuke. There is an example in the `examples` directory; simply insert a normal pass to get started.
 
 ## Inputs
 
