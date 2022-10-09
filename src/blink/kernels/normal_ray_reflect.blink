@@ -9,12 +9,25 @@
 //
 
 
-#define RAND_CONST_0 1.571411510193971f
-
-
 //
 // Math
 //
+
+
+/**
+ * Blend linearly between two values.
+ *
+ * @arg value0: The first value.
+ * @arg value1: The second value.
+ * @arg weight: The blend weight, 1 will return value0, and 0 will
+ *     return value1.
+ *
+ * @returns: The blended value.
+ */
+inline float blend(const float value0, const float value1, const float weight)
+{
+    return value1 + weight * (value0 - value1);
+}
 
 
 /**
@@ -120,19 +133,6 @@ inline float2 pixelsToUV(const float2 &pixelLocation, const float2 &format)
 
 
 /**
- * Compute the field of view from focal length.
- *
- * @arg focalLength: The focal length.
- *
- * @returns: The equivalent field of view.
- */
-inline float fieldOfView(const float focalLength)
-{
-    return 2 * atan(1 / focalLength);
-}
-
-
-/**
  * Compute the aspect ratio from image format.
  *
  * @arg height_: The height of the image.
@@ -196,60 +196,6 @@ inline float4 matmul(const float4x4 &m, const float4 &v)
     float4 out;
     matmul(m, v, out);
     return out;
-}
-
-
-/**
- * Get the rotation component of a world matrix.
- *
- * @arg worldMatrix: The world matrix.
- * @arg rotation: The location to store the rotation.
- */
-inline void rotationFromWorldMatrix(const float4x4 &worldMatrix, float3x3 &rotationMatrix)
-{
-    rotationMatrix[0][0] = worldMatrix[0][0];
-    rotationMatrix[0][1] = worldMatrix[0][1];
-    rotationMatrix[0][2] = worldMatrix[0][2];
-    rotationMatrix[1][0] = worldMatrix[1][0];
-    rotationMatrix[1][1] = worldMatrix[1][1];
-    rotationMatrix[1][2] = worldMatrix[1][2];
-    rotationMatrix[2][0] = worldMatrix[2][0];
-    rotationMatrix[2][1] = worldMatrix[2][1];
-    rotationMatrix[2][2] = worldMatrix[2][2];
-}
-
-
-/**
- * Convert a spherical unit vector (unit radius) to cartesion.
- *
- * @arg angles: The spherical angles in radians.
- *
- * @returns: The equivalent cartesion vector.
- */
-inline float3 sphericalUnitVectorToCartesion(const float2 &angles)
-{
-    const float sinPhi = sin(angles.y);
-    return float3(
-        cos(angles.x) * sinPhi,
-        cos(angles.y),
-        sin(angles.x) * sinPhi
-    );
-}
-
-
-/**
- * Convert the uv position in a latlong image to angles.
- *
- * @arg uvPosition: The UV position.
- *
- * @returns: The equivalent angles in radians.
- */
-inline float2 uvPositionToAngles(const float2 &uvPosition)
-{
-    return float2(
-        (uvPosition.x + 1.0f) * PI,
-        (1.0f - uvPosition.y) * PI / 2.0f
-    );
 }
 
 
@@ -424,12 +370,11 @@ inline float random(const float seed)
  *
  * @returns: A random value on the interval [0, 1].
  */
-inline float3 random(const float3 &seed)
+inline float2 random(const float2 &seed)
 {
-    return float3(
+    return float2(
         random(seed.x),
-        random(seed.y),
-        random(seed.z)
+        random(seed.y)
     );
 }
 
@@ -442,7 +387,7 @@ inline float3 random(const float3 &seed)
  *
  * @returns: A random unit vector.
  */
-float3 cosineDirectionInZHemisphere(const float3 &seed)
+float3 cosineDirectionInZHemisphere(const float2 &seed)
 {
     const float uniform = random(seed.x);
     const float r = sqrt(uniform);
@@ -464,7 +409,7 @@ float3 cosineDirectionInZHemisphere(const float3 &seed)
  *
  * @returns: A random unit vector.
  */
-float3 cosineDirectionInHemisphere(const float3 &axis, const float3 &seed)
+float3 cosineDirectionInHemisphere(const float3 &axis, const float2 &seed)
 {
     return normalize(alignWithDirection(
         float3(0, 0, 1),
@@ -771,12 +716,13 @@ kernel NormalReflectionKernel : ImageComputationKernel<ePixelWise>
      *     ray.
      */
     void getCameraRay(
+            const float2 &seed,
             const float2 &pixelLocation,
             float3 &rayOrigin,
             float3 &rayDirection)
     {
         const float2 uvCoordinates = pixelsToUV(
-            pixelLocation,
+            pixelLocation + random(seed),
             float2(_formatWidth, _formatHeight)
         );
 
@@ -800,7 +746,8 @@ kernel NormalReflectionKernel : ImageComputationKernel<ePixelWise>
         const float2 pixelLocation = float2(pos.x, pos.y);
 
         SampleType(seeds) seed4 = seeds();
-        float3 seed = float3(seed4.x, seed4.y, seed4.z);
+        float2 seed0 = float2(seed4.x, seed4.y);
+        float2 seed1 = float2(seed4.z, seed4.w);
 
         SampleType(normals) normal = normals();
         const float3 normalDirection = normalize(float3(
@@ -820,12 +767,13 @@ kernel NormalReflectionKernel : ImageComputationKernel<ePixelWise>
 
         float4 resultPixel = float4(0);
 
-        for (int sample=0; sample < _samples; sample++)
+        for (int sample=1; sample <= _samples; sample++)
         {
             // Generate a ray from the camera
             float3 rayOrigin;
             float3 rayDirection;
             getCameraRay(
+                seed0,
                 pixelLocation,
                 rayOrigin,
                 rayDirection
@@ -836,13 +784,14 @@ kernel NormalReflectionKernel : ImageComputationKernel<ePixelWise>
                 // Get the diffuse direction for the next ray
                 const float3 diffuseDirection = cosineDirectionInHemisphere(
                     normalDirection,
-                    seed
+                    seed1
                 );
 
                 if (diffuse > 0.0f)
                 {
                     resultPixel += diffuse * readHDRIValue(diffuseDirection);
                 }
+                float fresnelSpecular = specular;
                 if (transmission > 0.0f)
                 {
                     const float reflectivity = schlickReflectionCoefficient(
@@ -852,10 +801,9 @@ kernel NormalReflectionKernel : ImageComputationKernel<ePixelWise>
                         _refractedRefractiveIndex
                     );
 
-                    transmission = saturate(transmission * (1 - reflectivity));
-                    specular = clamp(specular + reflectivity, 0.0f, 1.0f - transmission);
+                    fresnelSpecular = blend(1.0f, specular, reflectivity);
 
-                    resultPixel += transmission * readHDRIValue(normalize(blend(
+                    resultPixel += transmission * (1.0f - fresnelSpecular) * readHDRIValue(normalize(blend(
                         diffuseDirection,
                         refractRayThroughSurface(
                             rayDirection,
@@ -864,19 +812,32 @@ kernel NormalReflectionKernel : ImageComputationKernel<ePixelWise>
                             _refractedRefractiveIndex
                         ),
                         transmission_roughness
-                    )));
+                    ))) / (1.0f - specular);
                 }
-                if (specular > 0.0f)
+                if (fresnelSpecular > 0.0f)
                 {
-                    resultPixel += specular * readHDRIValue(normalize(blend(
+                    resultPixel += fresnelSpecular * readHDRIValue(normalize(blend(
                         diffuseDirection,
                         reflectRayOffSurface(rayDirection, normalDirection),
                         specular_roughness
                     )));
                 }
             }
+            else
+            {
+                resultPixel += readHDRIValue(rayDirection);
+            }
 
-            seed = random(RAND_CONST_0 * seed);
+            // Update the seeds in as unbiased a way as we can think of
+            seed0 = random(seed1 + random(seed0));
+            float x = seed0.x;
+            seed0.x = seed0.y;
+            seed0.y = x;
+            seed1 = random(seed0 + random(seed1));
+            x = seed1.x;
+            seed1.x = seed1.y;
+            seed1.y = seed0.x;
+            seed0.x = x;
         }
 
         dst() = resultPixel / (float) _samples;

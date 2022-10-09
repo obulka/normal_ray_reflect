@@ -1,0 +1,191 @@
+#! /usr/local/Nuke13.2v2/libnuke-13.2.2.so -nx
+version 13.2 v2
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="1976" y="188" w="2504" h="1376" maximized="1" screen="0">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="1841" stretch="1"/>
+            <splitter orientation="2">
+                <split size="783"/>
+                <dock id="" activePageId="Viewer.1">
+                    <page id="Viewer.1"/>
+                </dock>
+                <split size="550"/>
+                <dock id="" activePageId="DAG.1" focus="true">
+                    <page id="DAG.1"/>
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                </dock>
+            </splitter>
+            <split size="615"/>
+            <dock id="" activePageId="Properties.1">
+                <page id="Properties.1"/>
+                <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name /home/ob1/software/nuke/dev/normal_ray_reflect/examples/test_script.nk
+ frame 75
+ format "2048 1556 0 0 2048 1556 1 2K_Super_35(full-ap)"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement Nuke
+ workingSpaceLUT linear
+ monitorLut sRGB
+ monitorOutLUT rec709
+ int8Lut sRGB
+ int16Lut sRGB
+ logLut Cineon
+ floatLut linear
+}
+BackdropNode {
+ inputs 0
+ name Info
+ label "Insert normals pass here"
+ xpos -298
+ ypos -349
+ bdwidth 156
+ bdheight 121
+}
+BackdropNode {
+ inputs 0
+ name SurfaceExamples
+ tile_color 0x8e388e00
+ note_font_size 42
+ xpos 166
+ ypos -484
+ bdwidth 697
+ bdheight 231
+}
+Constant {
+ inputs 0
+ color {1 0 0 {frame}}
+ name specular
+ xpos 625
+ ypos -423
+}
+set N9768c40 [stack 0]
+Noise {
+ inputs 0
+ size 265
+ lacunarity 1.27
+ gain 1
+ gamma 0.375
+ center {1024 778}
+ name Noise1
+ xpos 759
+ ypos -403
+}
+Merge2 {
+ inputs 2
+ operation multiply
+ name Merge1
+ xpos 759
+ ypos -362
+}
+Expression {
+ expr0 "min(r, 1)"
+ expr2 "max(0, 1-r)"
+ name spec_trans_mix
+ xpos 759
+ ypos -323
+}
+Dot {
+ name Dot2
+ xpos 793
+ ypos -276
+}
+Constant {
+ inputs 0
+ color {0 0 0 0}
+ name diffuse
+ xpos 195
+ ypos -421
+}
+Dot {
+ name Dot7
+ xpos 229
+ ypos -287
+}
+Constant {
+ inputs 0
+ color {1 0.2 0 0}
+ name rough_specular
+ xpos 297
+ ypos -421
+}
+Dot {
+ name Dot6
+ xpos 331
+ ypos -284
+}
+Constant {
+ inputs 0
+ color {0 0 1 0}
+ name transmissive
+ xpos 407
+ ypos -421
+}
+Dot {
+ name Dot5
+ xpos 441
+ ypos -284
+}
+Constant {
+ inputs 0
+ color {0 0 1 0.15}
+ name rough_transmissive
+ xpos 517
+ ypos -421
+}
+Dot {
+ name Dot4
+ xpos 551
+ ypos -283
+}
+push $N9768c40
+Dot {
+ name Dot3
+ xpos 659
+ ypos -280
+}
+Dot {
+ name Dot8
+ xpos 229
+ ypos -150
+}
+Camera3 {
+ inputs 0
+ name Camera1
+ xpos 80
+ ypos -318
+}
+CheckerBoard2 {
+ inputs 0
+ format "2048 1024 0 0 2048 1024 1 2K_LatLong"
+ color0 {0.1 0.1000000015 0.1000000015 1}
+ name CheckerBoard1
+ xpos -40
+ ypos -321
+}
+Dot {
+ inputs 0
+ name Dot1
+ xpos -226
+ ypos -270
+}
+N_RayReflect {
+ inputs 4
+ name N_RayReflect1
+ xpos -40
+ ypos -154
+ in rgb
+}
