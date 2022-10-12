@@ -3,13 +3,13 @@
 This gizmo allows you to reflect, diffuse, and refract rays using a normals pass and an HDRI.
 
 ![example_normals](https://user-images.githubusercontent.com/21975584/195250014-08f770d8-36e9-4d8c-9c58-093bbf26f634.png)
+![example_noise](https://user-images.githubusercontent.com/21975584/195250110-d225efa3-494a-4b96-8bc0-6d3d8942bbf2.png)
 ![example_specular](https://user-images.githubusercontent.com/21975584/195250043-a39fb2ba-7bbb-4b7c-8b26-922dca7505ab.png)
 ![example_specular_roughness](https://user-images.githubusercontent.com/21975584/195250049-977c4394-83ae-49a5-9fff-f9f3580fac84.png)
 ![example_diffuse](https://user-images.githubusercontent.com/21975584/195250065-cd0cb4d7-c28f-48a5-85a7-4d77b6aedbc7.png)
 ![example_transmission](https://user-images.githubusercontent.com/21975584/195250077-cd1d98ae-3aad-44b5-b757-dd31f7333b77.png)
 ![example_transmission_roughness](https://user-images.githubusercontent.com/21975584/195250091-6179244d-4c33-44ce-88d7-2b26ae223e79.png)
 ![example_transmission_and_spec_roughness](https://user-images.githubusercontent.com/21975584/195250100-bcbe0472-7a8a-4e6b-8863-a8b6ef4dfe12.png)
-![example_noise](https://user-images.githubusercontent.com/21975584/195250110-d225efa3-494a-4b96-8bc0-6d3d8942bbf2.png)
 
 ## Setup
 
