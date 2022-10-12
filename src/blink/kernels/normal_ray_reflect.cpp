@@ -750,11 +750,11 @@ kernel NormalReflectionKernel : ImageComputationKernel<ePixelWise>
         float2 seed1 = float2(seed4.z, seed4.w);
 
         SampleType(normals) normal = normals();
-        const float3 normalDirection = normalize(float3(
+        const float3 normalDirection = float3(
             normal.x,
             normal.y,
             normal.z
-        ));
+        );
 
         float specular = surface(0);
         float specular_roughness = surface(1);
@@ -779,8 +779,11 @@ kernel NormalReflectionKernel : ImageComputationKernel<ePixelWise>
                 rayDirection
             );
 
-            if (normal.w != 0.0f)
-            {
+            if (
+                normalDirection.x != 0.0f
+                || normalDirection.y != 0.0f
+                || normalDirection.z != 0.0f
+            ) {
                 // Get the diffuse direction for the next ray
                 const float3 diffuseDirection = cosineDirectionInHemisphere(
                     normalDirection,
