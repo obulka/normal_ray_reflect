@@ -1,6 +1,6 @@
 # normal_ray_reflect
 
-This gizmo allows you to reflect, diffuse, and refract rays using a normals pass and an HDRI.
+This gizmo allows you to reflect, diffuse, and refract rays using a normal pass and an HDRI.
 
 ![example_normals](https://user-images.githubusercontent.com/21975584/195250014-08f770d8-36e9-4d8c-9c58-093bbf26f634.png)
 ![example_noise](https://user-images.githubusercontent.com/21975584/195250110-d225efa3-494a-4b96-8bc0-6d3d8942bbf2.png)
