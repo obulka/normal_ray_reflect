@@ -585,8 +585,8 @@ kernel NormalReflectionKernel : ImageComputationKernel<ePixelWise>
     Image<eRead, eAccessPoint, eEdgeClamped> seeds;
     Image<eRead, eAccessPoint, eEdgeClamped> surface;
 
-    // the hdri in latlong format
     Image<eRead, eAccessRandom, eEdgeClamped> hdri;
+    Image<eRead, eAccessRandom, eEdgeClamped> irradiance;
 
     // the output image
     Image<eWrite> dst;
@@ -607,6 +607,7 @@ kernel NormalReflectionKernel : ImageComputationKernel<ePixelWise>
         float _formatHeight;
 
         float _hdriOffsetAngle;
+        bool _usePrecomputedIrradiance;
 
         // Ray Params
         int _samples;
@@ -623,6 +624,7 @@ kernel NormalReflectionKernel : ImageComputationKernel<ePixelWise>
 
         float2 __hdriPixelSize;
         float __hdriOffsetRadians;
+        float2 __irradiancePixelSize;
 
 
     /**
@@ -650,6 +652,7 @@ kernel NormalReflectionKernel : ImageComputationKernel<ePixelWise>
         defineParam(_formatHeight, "Screen Height", 2160.0f);
         defineParam(_formatWidth, "Screen Width", 3840.0f);
         defineParam(_hdriOffsetAngle, "HDRI Offset Angle", 0.0f);
+        defineParam(_usePrecomputedIrradiance, "Use Precomputed Irradiance", true);
 
         // Ray Params
         defineParam(_samples, "Samples", 1);
@@ -676,6 +679,10 @@ kernel NormalReflectionKernel : ImageComputationKernel<ePixelWise>
         __hdriPixelSize = float2(
             hdri.bounds.width() / (2 * PI),
             hdri.bounds.height() / PI
+        );
+        __irradiancePixelSize = float2(
+            irradiance.bounds.width() / (2 * PI),
+            irradiance.bounds.height() / PI
         );
         __hdriOffsetRadians = degreesToRadians(_hdriOffsetAngle);
     }
@@ -704,6 +711,32 @@ kernel NormalReflectionKernel : ImageComputationKernel<ePixelWise>
         );
 
         return bilinear(hdri, indices.x, indices.y);
+    }
+
+
+    /**
+     * Get the value of irradiance the hdri would provide in a direction
+     *
+     * @arg rayDirection: The direction of the ray.
+     *
+     * @returns: The colour of the pixel in the direction of the ray.
+     */
+    inline float4 readIrradianceValue(float3 rayDirection)
+    {
+        const float2 angles = cartesionUnitVectorToSpherical(rayDirection, __hdriOffsetRadians);
+
+        // Should be able to say image access is eEdgeClamped and not do this
+        // but I see nan pixels sooo... :(
+        const float2 indices = clamp(
+            float2(
+                __irradiancePixelSize.x * angles.x,
+                irradiance.bounds.height() - (__irradiancePixelSize.y * angles.y)
+            ),
+            float2(0),
+            float2(irradiance.bounds.width(), irradiance.bounds.height()) - 1.0f
+        );
+
+        return bilinear(irradiance, indices.x, indices.y);
     }
 
 
@@ -792,7 +825,14 @@ kernel NormalReflectionKernel : ImageComputationKernel<ePixelWise>
 
                 if (diffuse > 0.0f)
                 {
-                    resultPixel += diffuse * readHDRIValue(diffuseDirection);
+                    if (_usePrecomputedIrradiance)
+                    {
+                        resultPixel += diffuse * readIrradianceValue(normalDirection);
+                    }
+                    else
+                    {
+                        resultPixel += diffuse * readHDRIValue(diffuseDirection);
+                    }
                 }
                 float fresnelSpecular = specular;
                 if (transmission > 0.0f)
