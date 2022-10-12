@@ -1,4 +1,4 @@
-# normal_ray_reflect
+# N_RayReflect
 
 This gizmo allows you to reflect, diffuse, and refract rays using a normal AOV, and an HDRI.
 
@@ -56,9 +56,9 @@ Simply clone/download this repo and add the following line to your `init.py`: `n
 ## Limitations
 
 - There are no secondary reflections for any material
-- The transmissive objects are treated as shells
-  - They have no back wall so rays are not refracted or reflected off the back of the shape
-  - If the rays are meant to enter and exit the object the final refracted direction, and therefore the final colour will not be physically accurate
+  - The transmissive objects are treated as shells
+    - They have no back wall so rays are not refracted or reflected off the back of the shape
+    - If the rays are meant to enter and exit the object the final refracted direction, and therefore the final colour will not be physically accurate
 
 ## References
 - HDRI used in examples from Greg Zaal - https://polyhaven.com/a/aft_lounge
