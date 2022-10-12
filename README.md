@@ -35,15 +35,23 @@ Simply clone/download this repo and add the following line to your `init.py`: `n
 ## Knobs
 
 - Normals
-  - The channels to use as the normals pass
+  - The channels to use as the normals pass.
 - Ray Samples
-  - The number of samples to use per pixel
+  - The number of samples to use per pixel.
 - Incident Refractive Index
-  - The refractive index of the incoming ray medium
+  - The refractive index of the incoming ray medium.
 - Refracted Refractive Index
-  - The refractive index of the outgoing ray medium
+  - The refractive index of the outgoing ray medium.
 - HDRI Offset Angle
-  - Rotate the HDRI by this amount
+  - Rotate the HDRI by this amount.
+- Enable Precomputed Irradiance
+  - Use a precomputed irradiance for diffuse lighting. This will require only one sample rather than many in order to converge.
+- Irradiance Blur Size
+  - Blur the HDRI by this amount before using it to compute the irradiance. This can help reduce artifacts caused by small, bright, light sources without increasing the 'Irradiance Samples'.
+- Irradiance Samples
+  - The number of samples in the horizontal direction that will be used to compute the irradiance of a hemisphere of the HDRI. Half this many samples will be used in the vertical direction.
+- Output Irradiance
+  - Enable this to view the irradiance.
 
 ## References
 - HDRI used in examples from Greg Zaal - https://polyhaven.com/a/aft_lounge
