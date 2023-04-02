@@ -18,13 +18,13 @@ Specular Roughness
 Diffuse
 
 ![example_transmission](https://user-images.githubusercontent.com/21975584/195250077-cd1d98ae-3aad-44b5-b757-dd31f7333b77.png)
-Transmissive
+Transmission
 
 ![example_transmission_roughness](https://user-images.githubusercontent.com/21975584/195250091-6179244d-4c33-44ce-88d7-2b26ae223e79.png)
-Transmissive Roughness
+Transmission Roughness
 
 ![example_transmission_and_spec_roughness](https://user-images.githubusercontent.com/21975584/195250100-bcbe0472-7a8a-4e6b-8863-a8b6ef4dfe12.png)
-Transmissive and Specular Roughness
+Transmission and Specular Roughness
 
 ## Setup
 
