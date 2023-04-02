@@ -583,7 +583,10 @@ kernel NormalReflectionKernel : ImageComputationKernel<ePixelWise>
 {
     Image<eRead, eAccessPoint, eEdgeClamped> normals;
     Image<eRead, eAccessPoint, eEdgeClamped> seeds;
-    Image<eRead, eAccessPoint, eEdgeClamped> surface;
+    Image<eRead, eAccessPoint, eEdgeClamped> diffuse;
+    Image<eRead, eAccessPoint, eEdgeClamped> specular;
+    Image<eRead, eAccessPoint, eEdgeClamped> transmission;
+    Image<eRead, eAccessPoint, eEdgeClamped> material;
 
     Image<eRead, eAccessRandom, eEdgeClamped> hdri;
     Image<eRead, eAccessRandom, eEdgeClamped> irradiance;
@@ -789,14 +792,26 @@ kernel NormalReflectionKernel : ImageComputationKernel<ePixelWise>
             normal.z
         );
 
-        float specular = surface(0);
-        float specular_roughness = surface(1);
-        float transmission = surface(2);
-        float transmission_roughness = surface(3);
-        specular_roughness *= specular_roughness;
-        transmission_roughness *= transmission_roughness;
+        const float4 diffuseColour = diffuse();
+        const float4 specularColour = specular();
+        const float4 transmissionColour = transmission();
+        const float4 materialProperties = material();
 
+        const float specular = saturate(specularColour.w);
+        float transmission;
+        if (specular + transmissionColour.w > 1.0f)
+        {
+            transmission = 1.0f - specular;
+        }
+        else
+        {
+            transmission = saturate(transmissionColour.w);
+        }
         const float diffuse = saturate(1.0f - transmission - specular);
+
+        const float specularRoughness = materialProperties.x * materialProperties.x;
+        const float transmissionRoughness = materialProperties.y * materialProperties.y;
+        // TODO: use material properties z and w slots to represent something, maybe anisotropy
 
         float4 resultPixel = float4(0);
 
@@ -827,15 +842,15 @@ kernel NormalReflectionKernel : ImageComputationKernel<ePixelWise>
                 {
                     if (_usePrecomputedIrradiance)
                     {
-                        resultPixel += diffuse * readIrradianceValue(normalDirection);
+                        resultPixel += diffuse * diffuseColour * readIrradianceValue(normalDirection);
                     }
                     else
                     {
-                        resultPixel += diffuse * readHDRIValue(diffuseDirection);
+                        resultPixel += diffuse * diffuseColour * readHDRIValue(diffuseDirection);
                     }
                 }
                 float fresnelSpecular = specular;
-                if (transmission > 0.0f)
+                if (transmission > 0.0f || specular > 0.0f)
                 {
                     const float reflectivity = schlickReflectionCoefficient(
                         rayDirection,
@@ -846,24 +861,35 @@ kernel NormalReflectionKernel : ImageComputationKernel<ePixelWise>
 
                     fresnelSpecular = blend(1.0f, specular, reflectivity);
 
-                    resultPixel += transmission * (1.0f - fresnelSpecular) * readHDRIValue(normalize(blend(
-                        diffuseDirection,
-                        refractRayThroughSurface(
-                            rayDirection,
-                            normalDirection,
-                            _incidentRefractiveIndex,
-                            _refractedRefractiveIndex
-                        ),
-                        transmission_roughness
-                    ))) / (1.0f - specular);
+                    if (transmission > 0.0f)
+                    {
+                        resultPixel += (
+                            transmission * transmissionColour * (1.0f - fresnelSpecular)
+                            * readHDRIValue(normalize(blend(
+                                diffuseDirection,
+                                refractRayThroughSurface(
+                                    rayDirection,
+                                    normalDirection,
+                                    _incidentRefractiveIndex,
+                                    _refractedRefractiveIndex
+                                ),
+                                transmissionRoughness
+                            )))
+                            / (1.0f - specular)
+                        );
+                        
+                    }
                 }
                 if (fresnelSpecular > 0.0f)
                 {
-                    resultPixel += fresnelSpecular * readHDRIValue(normalize(blend(
-                        diffuseDirection,
-                        reflectRayOffSurface(rayDirection, normalDirection),
-                        specular_roughness
-                    )));
+                    resultPixel += (
+                        fresnelSpecular * specularColour
+                        * readHDRIValue(normalize(blend(
+                            diffuseDirection,
+                            reflectRayOffSurface(rayDirection, normalDirection),
+                            specularRoughness
+                        )))
+                    );
                 }
             }
             else
