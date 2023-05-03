@@ -38,14 +38,16 @@ Simply clone/download this repo and add the following line to your `init.py`: `n
   - The camera to shoot rays out of
 - normals
   - The normals pass that will be used to reflect, refract, and diffuse the rays
-- surface
-  - The surface properties at each pixel location
-  - R is specular
-  - G is specular roughness
-  - B is transmission
-  - A is transmission roughness
-  - The diffuse contribution is 1 - specular - transmission
-  - specular + transmission should not be greater than 1 for physical accuracy
+- diffuse
+  - The diffuse colour of the surface represented by the normals pass if the diffuse "Use Input" is checked
+- specular
+  - The specular colour of the surface represented by the normals pass if the specular "Use Input" is checked
+- transmission
+  - The transmission colour of the surface represented by the normals pass if the transmission "Use Input" is checked
+- specRoughness
+  - The specular roughness values of the surface represented by the normals pass if the specular roughness "Use Input" is checked
+- transRoughness
+  - The transmission roughness values of the surface represented by the normals pass if the transmission roughness "Use Input" is checked
 
 ## Knobs
 
@@ -59,6 +61,20 @@ Simply clone/download this repo and add the following line to your `init.py`: `n
   - The refractive index of the outgoing ray medium.
 - HDRI Offset Angle
   - Rotate the HDRI by this amount.
+- Diffuse Colour
+  - The diffuse colour of the surface if the diffuse "Use Input" knob is not checked
+- Specular Colour
+  - The specular colour of the surface if the specular "Use Input" knob is not checked
+- Transmission Colour
+  - The transmission colour of the surface if the transmission "Use Input" knob is not checked
+- Specular Roughness
+  - The specular roughness of the surface if the specular roughness "Use Input" knob is not checked
+- Transmission Roughness
+  - The transmission roughness of the surface if the transmission roughness "Use Input" knob is not checked
+- Use Input
+  - These knobs toggle between the use of the corresponding knobs as a surface property, or the corresponding input
+    - If you use the knob, ("Use Input" false) the entire surface will have the same value, which can be good for testing
+    - If you use the input, ("Use Input" true) the surface property can be specified in an image, and therefore each pixel can take a different value
 - Enable Precomputed Irradiance
   - Use a precomputed irradiance for diffuse lighting. This will require only one sample rather than many in order to converge.
 - Irradiance Blur Size
