@@ -1,6 +1,6 @@
 # N_RayReflect
 
-This gizmo allows you to perform single-bounce raytracing using just a normals AOV, and an HDRI.
+This BlinkScript Gizmo allows you to perform single-bounce raytracing, only requiring a camera, normals AOV, and HDRI.
 
 ![Daft_Punk_v002](https://github.com/obulka/normal_ray_reflect/assets/21975584/b80d9742-4d1b-403a-9aa1-1d3c31d28dd3)
 
