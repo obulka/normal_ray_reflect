@@ -1,4 +1,4 @@
-add_layer {normals normals.red normals.green normals.blue normals.alpha}
+add_layer {N N.x N.y N.z}
 Gizmo {
  inputs 8
  knobChanged "\nnode = nuke.thisNode()\nknob = nuke.thisKnob()\nknob_value = knob.getValue()\n\nif knob.name() == \"use_diffuse_input\":\n    node.knob(\"diffuse_colour\").setEnabled(not knob_value)\nelif knob.name() == \"use_specular_input\":\n    node.knob(\"specular_colour\").setEnabled(not knob_value)\n    node.knob(\"specular\").setEnabled(not knob_value)\nelif knob.name() == \"use_transmission_input\":\n    node.knob(\"transmission_colour\").setEnabled(not knob_value)\n    node.knob(\"transmission\").setEnabled(not knob_value)\nelif knob.name() == \"use_specular_roughness_input\":\n    node.knob(\"specular_roughness\").setEnabled(not knob_value)\nelif knob.name() == \"use_transmission_roughness_input\":\n    node.knob(\"transmission_roughness\").setEnabled(not knob_value)\n"
@@ -50,7 +50,7 @@ Gizmo {
  addUserKnob {6 output_irradiance l "Output Irradiance" t "Select this to view the irradiance." +STARTLINE}
  addUserKnob {20 endGroup n -1}
  addUserKnob {26 ""}
- addUserKnob {26 INFO l "" +STARTLINE T "v2.0.0 - (c) Owen Bulka and Riley Gray - 2022 "}
+ addUserKnob {26 INFO l "" +STARTLINE T "v2.0.1 - (c) Owen Bulka and Riley Gray - 2022 "}
 }
  Constant {
   inputs 0
@@ -67,7 +67,7 @@ Gizmo {
   xpos -1221
   ypos -114
  }
-set N152e16e0 [stack 0]
+set N103da580 [stack 0]
  Dot {
   name Dot2
   xpos -1096
@@ -78,7 +78,7 @@ set N152e16e0 [stack 0]
   xpos -1050
   ypos -110
  }
-set Nae507b80 [stack 0]
+set N103ecb10 [stack 0]
  Input {
   inputs 0
   name hdri
@@ -98,7 +98,7 @@ set Nae507b80 [stack 0]
   xpos -973
   ypos -27
  }
-set N150df720 [stack 0]
+set N104057f0 [stack 0]
  Blur {
   size {{parent.irradiance_blur_size}}
   name Blur1
@@ -123,48 +123,54 @@ set N150df720 [stack 0]
   xpos -906
   ypos 27
  }
+ Reformat {
+  type scale
+  name WindowsBugFix
+  xpos -906
+  ypos 65
+ }
  Dot {
   name Dot11
   xpos -872
   ypos 244
  }
-set N14ed9710 [stack 0]
+set N10430d60 [stack 0]
  Dot {
   name Dot10
   xpos -872
   ypos 588
  }
-push $Nae507b80
+push $N103ecb10
  Dot {
   name Dot17
   xpos -761
   ypos -110
  }
-set N14ddc150 [stack 0]
+set N10445740 [stack 0]
  Dot {
   name Dot16
   xpos -516
   ypos -110
  }
-set N14ddf6c0 [stack 0]
+set N1044a740 [stack 0]
  Dot {
   name Dot19
   xpos -272
   ypos -110
  }
-set N14cd2d60 [stack 0]
+set N1044f7d0 [stack 0]
  Dot {
   name Dot12
   xpos 15
   ypos -110
  }
-set N14cd6360 [stack 0]
+set N10454860 [stack 0]
  Dot {
   name Dot14
   xpos 239
   ypos -110
  }
-set N14cd9960 [stack 0]
+set N104598f0 [stack 0]
  Dot {
   name Dot3
   xpos 407
@@ -183,7 +189,7 @@ set N14cd9960 [stack 0]
   ypos -75
  }
  Shuffle {
-  in normals
+  in N
   name Shuffle1
   xpos 480
   ypos -49
@@ -193,7 +199,7 @@ set N14cd9960 [stack 0]
   xpos 514
   ypos 301
  }
-set N14ad5580 [stack 0]
+set N10487eb0 [stack 0]
  Dot {
   name Dot5
   xpos 624
@@ -204,14 +210,14 @@ set N14ad5580 [stack 0]
   xpos 624
   ypos 494
  }
-push $N14ed9710
-push $N150df720
+push $N10430d60
+push $N104057f0
  Dot {
   name Dot1
   xpos -973
   ypos 280
  }
-push $N14cd6360
+push $N10454860
  Input {
   inputs 0
   name specRoughness
@@ -253,7 +259,7 @@ push $N14cd6360
   xpos 83
   ypos 167
  }
-push $N14cd9960
+push $N104598f0
  Input {
   inputs 0
   name transRoughness
@@ -293,7 +299,6 @@ push $N14cd9960
   inputs 2
   bbox B
   name merge7
-  selected true
   xpos 279
   ypos 163
  }
@@ -302,7 +307,7 @@ push $N14cd9960
   xpos 313
   ypos 268
  }
-push $N14cd2d60
+push $N1044f7d0
  Input {
   inputs 0
   name transmission
@@ -336,7 +341,7 @@ push $N14cd2d60
   xpos -150
   ypos 203
  }
-push $N14ddf6c0
+push $N1044a740
  Input {
   inputs 0
   name specular
@@ -370,7 +375,7 @@ push $N14ddf6c0
   xpos -389
   ypos 226
  }
-push $N14ddc150
+push $N10445740
  Input {
   inputs 0
   name diffuse
@@ -404,7 +409,7 @@ push $N14ddc150
   xpos -636
   ypos 233
  }
-push $N152e16e0
+push $N103da580
  Noise {
   output {rgba.red -rgba.green -rgba.blue -rgba.alpha}
   size 1
@@ -462,7 +467,7 @@ push $N152e16e0
   xpos -1187
   ypos 402
  }
-push $N14ad5580
+push $N10487eb0
  BlinkScript {
   inputs 8
   kernelSourceFile /home/ob1/software/nuke/dev/normal_ray_reflect/src/blink/kernels/normal_ray_reflect.cpp
