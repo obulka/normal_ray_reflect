@@ -76,4 +76,4 @@ Simply clone/download this repo and add the following line to your `init.py`: `n
     - If the rays are meant to enter and exit the object the final refracted direction, and therefore the final colour will not be physically accurate
 
 ## References
-- HDRI used in examples from Greg Zaal - https://polyhaven.com/a/aft_lounge
+- Examples courtesy of Riley Gray
