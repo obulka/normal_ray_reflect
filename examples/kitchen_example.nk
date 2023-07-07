@@ -51,10 +51,24 @@ BackdropNode {
  name BackdropNode1
  tile_color 0x883277ff
  label "Replace me with an HDRI\n\ntry: https://polyhaven.com/a/ninomaru_teien for example\n"
+ note_font_size 12
+ note_font_color 0xffffffff
  xpos -414
  ypos -429
- bdwidth 292
- bdheight 205
+ bdwidth 328
+ bdheight 197
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode3
+ tile_color 0x883277ff
+ label "Read in geometry or replace the ScanlineRender\nwith a normals AOV"
+ note_font_size 12
+ note_font_color 0xffffffff
+ xpos 37
+ ypos -500
+ bdwidth 284
+ bdheight 251
 }
 Axis3 {
  inputs 0
@@ -76,25 +90,25 @@ Dot {
  xpos -42
  ypos -278
 }
-set N31ba00d0 [stack 0]
+set N956c370 [stack 0]
 Dot {
  name Dot2
  xpos -42
  ypos -195
 }
-set Nb7c0d3c0 [stack 0]
+set N94f0840 [stack 0]
 Dot {
  name Dot16
  xpos -42
  ypos -48
 }
-set Nb7450050 [stack 0]
+set N94f0350 [stack 0]
 Dot {
  name Dot6
  xpos -42
  ypos 78
 }
-set Nd4206260 [stack 0]
+set N94efe60 [stack 0]
 Dot {
  name Dot14
  xpos -42
@@ -112,34 +126,32 @@ Dot {
  xpos -184
  ypos -136
 }
-set Nb7bfb0e0 [stack 0]
+set N94eef90 [stack 0]
 Dot {
  name Dot12
  xpos -184
  ypos -5
 }
-set N96e6140 [stack 0]
+set N9388900 [stack 0]
 Dot {
  name Dot4
  xpos -184
  ypos 133
 }
-set Na5207c0 [stack 0]
+set N956be50 [stack 0]
 Dot {
  name Dot13
  xpos -184
  ypos 255
 }
-set N98edb80 [stack 0]
-push $N31ba00d0
+set N9382d30 [stack 0]
+push $N956c370
 ReadGeo2 {
  inputs 0
- file /home/ob1/software/nuke/assets/Kitchen_set/Kitchen_set.usd
  localizationPolicy off
- scene_graph {{0} version: 1 + /Kitchen_set}
  name ReadGeo1
  xpos 110
- ypos -373
+ ypos -381
 }
 push 0
 add_layer {P P.x P.y P.z}
@@ -160,19 +172,19 @@ Dot {
  xpos 144
  ypos -230
 }
-set Nb7493510 [stack 0]
+set N9872230 [stack 0]
 Dot {
  name Dot9
  xpos 144
  ypos -99
 }
-set Nb742ea30 [stack 0]
+set N9503e80 [stack 0]
 Dot {
  name Dot8
  xpos 144
  ypos 50
 }
-set Na62dac0 [stack 0]
+set N80d1ff0 [stack 0]
 Dot {
  name Dot15
  xpos 144
@@ -195,9 +207,9 @@ N_RayReflect {
  use_transmission_roughness_input false
  irradiance_sampling 1
 }
-push $Nd4206260
-push $Na5207c0
-push $Na62dac0
+push $N94efe60
+push $N956be50
+push $N80d1ff0
 N_RayReflect {
  inputs 3
  name N_RayReflect3
@@ -214,9 +226,9 @@ N_RayReflect {
  use_transmission_roughness_input false
  irradiance_sampling 1
 }
-push $Nb7450050
-push $N96e6140
-push $Nb742ea30
+push $N94f0350
+push $N9388900
+push $N9503e80
 N_RayReflect {
  inputs 3
  name N_RayReflect2
@@ -234,9 +246,9 @@ N_RayReflect {
  use_transmission_roughness_input false
  irradiance_sampling 1
 }
-push $Nb7c0d3c0
-push $Nb7bfb0e0
-push $Nb7493510
+push $N94f0840
+push $N94eef90
+push $N9872230
 N_RayReflect {
  inputs 3
  name N_RayReflect
@@ -275,7 +287,7 @@ Dot {
  xpos 442
  ypos 380
 }
-push $Nb7493510
+push $N9872230
 Shuffle2 {
  fromInput1 {{0} B}
  in1 N
@@ -290,7 +302,7 @@ Dot {
  xpos 583
  ypos 392
 }
-push $N98edb80
+push $N9382d30
 Dot {
  name Dot10
  xpos -184
