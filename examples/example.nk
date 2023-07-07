@@ -58,7 +58,7 @@ Camera3 {
  xpos -228
  ypos -185
 }
-set Naa42720 [stack 0]
+set Nc2c84d0 [stack 0]
 CheckerBoard2 {
  inputs 0
  name CheckerBoard2
@@ -84,7 +84,7 @@ ScanlineRender {
  xpos -18
  ypos -165
 }
-set Naa28bf0 [stack 0]
+set Nc234f90 [stack 0]
 Group {
  name P_Noise_Advanced2
  knobChanged "\nn = nuke.thisNode()\ntype = n\['noisetype'].value()\nblock = n\['Trunc'].getValue()\nVis = \[]\nHide = \[]\nif type in ('fBm', 'turbulent'):\n    Vis.extend(\['octaves', 'lacunarity', 'gain', 'gamma'])\n    Hide.extend(\['rays', 'range', 'invert', 'ringsSeed', 'raysSeed', 'gammaNormalize'])   \nelif type == 'p_rings':\n    Vis.extend(\['ringsSeed', 'gammaNormalize'])\n    Hide.extend(\['rays', 'range', 'invert', 'octaves', 'lacunarity', 'gain', 'gamma', 'raysSeed'])\nelif type == 'p_rays':\n    Vis.extend(\['rays', 'raysSeed', 'gammaNormalize'])\n    Hide.extend(\['range', 'invert', 'octaves', 'lacunarity', 'gain', 'gamma', 'ringsSeed'])\nelif type in ('Euclidian', 'Voronoi', 'Manhattan', 'ChebyShev'):\n    Vis.extend(\['range', 'gammaNormalize'])\n    Hide.extend(\['rays', 'invert', 'octaves', 'lacunarity', 'gain', 'gamma', 'ringsSeed', 'raysSeed'])\nelif type == 'Worley':\n    Vis.extend(\['invert', 'gammaNormalize'])\n    Hide.extend(\['rays', 'range', 'octaves', 'lacunarity', 'gain', 'gamma', 'ringsSeed', 'raysSeed'])\nfor r in Vis: n\[r].setVisible(True)\nfor x in Hide: n\[x].setVisible(False)\n\nif block == True:\n    n\['truncSize'].setVisible(True)\nelse:\n    n\['truncSize'].setVisible(False)\n"
@@ -187,13 +187,13 @@ Group {
   xpos 34
   ypos 66
  }
-set Nadddd60 [stack 0]
+set Nea74690 [stack 0]
  Dot {
   name Dot4
   xpos -130
   ypos 66
  }
-set Nade2e10 [stack 0]
+set Nc131c90 [stack 0]
  Dot {
   name Dot3
   xpos -292
@@ -215,7 +215,7 @@ set Nade2e10 [stack 0]
   xpos 265
   ypos 200
  }
-push $Nadddd60
+push $Nea74690
  Add {
   channels rgb
   value {{parent.Sample.rgbSample/-1} {parent.Sample.rgbSample/-1} {parent.Sample.rgbSample/-1} 0}
@@ -269,13 +269,13 @@ push $Nadddd60
    xpos -110
    ypos -192
   }
-set Nae48c30 [stack 0]
+set Nc17e1b0 [stack 0]
   Dot {
    name Dot1
    xpos -76
    ypos -161
   }
-set Nae4dfe0 [stack 0]
+set Nc3c7950 [stack 0]
   Expression {
    expr3 a>0
    name ExpressionA
@@ -288,8 +288,8 @@ set Nae4dfe0 [stack 0]
    xpos -220
    ypos -112
   }
-push $Nae4dfe0
-push $Nae48c30
+push $Nc3c7950
+push $Nc17e1b0
   Remove {
    name RemoveAll
    xpos 34
@@ -330,7 +330,7 @@ push $Nae48c30
    xpos 34
    ypos -116
   }
-push $Nae4dfe0
+push $Nc3c7950
   Merge2 {
    inputs 2+1
    operation copy
@@ -381,7 +381,7 @@ push $Nae4dfe0
   xpos 34
   ypos 469
  }
-set Naef62e0 [stack 0]
+set Nc086d40 [stack 0]
  BlinkScript {
   recompileCount 6
   ProgramGroup 1
@@ -402,7 +402,7 @@ set Naef62e0 [stack 0]
   xpos 990
   ypos 615
  }
-push $Naef62e0
+push $Nc086d40
  BlinkScript {
   recompileCount 5
   ProgramGroup 1
@@ -424,7 +424,7 @@ push $Naef62e0
   xpos 880
   ypos 614
  }
-push $Naef62e0
+push $Nc086d40
  BlinkScript {
   recompileCount 16
   ProgramGroup 1
@@ -446,7 +446,7 @@ push $Naef62e0
   xpos 770
   ypos 615
  }
-push $Naef62e0
+push $Nc086d40
  BlinkScript {
   recompileCount 16
   KernelDescription "2 \"VoronoiNoise\" iterate pixelWise b5254626cd5df5ff862ca8817e176a1b623927081c48080950344a31c6d0cf9e 2 \"position_pass\" Read Point \"dst\" Write Point 1 \"Range\" Float 1 AABAQA== 1 \"range\" 1 1 2 \"fRange\" Float 1 1 AAAAAA== \"iRange\" Int 1 1 AAAAAA=="
@@ -467,7 +467,7 @@ push $Naef62e0
   xpos 658
   ypos 615
  }
-push $Naef62e0
+push $Nc086d40
  BlinkScript {
   recompileCount 18
   KernelDescription "2 \"EuclidianNoise\" iterate pixelWise dbf5e83c1b46011f2fc8e7b81e879b31ef00feccf8756cfeccd2d9e033e58784 2 \"position_pass\" Read Point \"dst\" Write Point 1 \"Range\" Float 1 AABAQA== 1 \"range\" 1 1 2 \"fRange\" Float 1 1 AAAAAA== \"iRange\" Int 1 1 AAAAAA=="
@@ -489,7 +489,7 @@ push $Naef62e0
   xpos 550
   ypos 615
  }
-push $Naef62e0
+push $Nc086d40
  Expression {
   channel0 rgba
   expr0 "sin( atan(r, g) *this.rays+this.rays_seed)"
@@ -511,7 +511,7 @@ push $Naef62e0
   xpos 400
   ypos 606
  }
-push $Naef62e0
+push $Nc086d40
  Expression {
   channel0 rgba
   expr0 "sin(sqrt( r*r + g*g + b*b)+this.rings_seed)"
@@ -531,7 +531,7 @@ push $Naef62e0
   xpos 259
   ypos 605
  }
-push $Naef62e0
+push $Nc086d40
  Expression {
   channel0 rgba
   expr0 "pow(turbulence (r, g, b, this.octaves, this.lacunarity, this.gain), 1/this.gamma)"
@@ -551,7 +551,7 @@ push $Naef62e0
   addUserKnob {7 gamma}
   gamma {{parent.gamma}}
  }
-push $Naef62e0
+push $Nc086d40
  Expression {
   channel0 rgba
   expr0 "pow((fBm (r, g, b, this.octaves, this.lacunarity, this.gain) +1)/2, 1/this.gamma)"
@@ -592,7 +592,7 @@ push $Naef62e0
   xpos 0
   ypos 885
  }
-push $Nade2e10
+push $Nc131c90
  NoOp {
   name SampleXY
   knobChanged "\nn = nuke.thisNode()\nrgbNode = nuke.toNode('Sample')\nposition = n.knob('Position2d').getValue()\npositionX = position\[0]\npositionY = position\[-1]\nrSample = n.sample(\"r\",positionX,positionY)\ngSample = n.sample(\"g\",positionX,positionY)\nbSample = n.sample(\"b\",positionX,positionY)\nrgbNode.knob('rgbSample').setValue(\[rSample, gSample, bSample])\n"
@@ -630,14 +630,14 @@ Grade {
 Dot {
  name Dot4
  xpos 715
- ypos 8
+ ypos 109
 }
-set Nb025410 [stack 0]
-push $Nb025410
+set Nbf4d350 [stack 0]
+push $Nbf4d350
 Dot {
  name Dot5
  xpos 715
- ypos 81
+ ypos 183
 }
 Constant {
  inputs 0
@@ -646,7 +646,7 @@ Constant {
  xpos 326
  ypos -81
 }
-push $Naa28bf0
+push $Nc234f90
 Group {
  name P_Noise_Advanced1
  knobChanged "\nn = nuke.thisNode()\ntype = n\['noisetype'].value()\nblock = n\['Trunc'].getValue()\nVis = \[]\nHide = \[]\nif type in ('fBm', 'turbulent'):\n    Vis.extend(\['octaves', 'lacunarity', 'gain', 'gamma'])\n    Hide.extend(\['rays', 'range', 'invert', 'ringsSeed', 'raysSeed', 'gammaNormalize'])   \nelif type == 'p_rings':\n    Vis.extend(\['ringsSeed', 'gammaNormalize'])\n    Hide.extend(\['rays', 'range', 'invert', 'octaves', 'lacunarity', 'gain', 'gamma', 'raysSeed'])\nelif type == 'p_rays':\n    Vis.extend(\['rays', 'raysSeed', 'gammaNormalize'])\n    Hide.extend(\['range', 'invert', 'octaves', 'lacunarity', 'gain', 'gamma', 'ringsSeed'])\nelif type in ('Euclidian', 'Voronoi', 'Manhattan', 'ChebyShev'):\n    Vis.extend(\['range', 'gammaNormalize'])\n    Hide.extend(\['rays', 'invert', 'octaves', 'lacunarity', 'gain', 'gamma', 'ringsSeed', 'raysSeed'])\nelif type == 'Worley':\n    Vis.extend(\['invert', 'gammaNormalize'])\n    Hide.extend(\['rays', 'range', 'octaves', 'lacunarity', 'gain', 'gamma', 'ringsSeed', 'raysSeed'])\nfor r in Vis: n\[r].setVisible(True)\nfor x in Hide: n\[x].setVisible(False)\n\nif block == True:\n    n\['truncSize'].setVisible(True)\nelse:\n    n\['truncSize'].setVisible(False)\n"
@@ -749,13 +749,13 @@ Group {
   xpos 34
   ypos 66
  }
-set Nb077430 [stack 0]
+set Ndd77fa0 [stack 0]
  Dot {
   name Dot4
   xpos -130
   ypos 66
  }
-set Nb07c2d0 [stack 0]
+set Ndd7d050 [stack 0]
  Dot {
   name Dot3
   xpos -292
@@ -777,7 +777,7 @@ set Nb07c2d0 [stack 0]
   xpos 265
   ypos 200
  }
-push $Nb077430
+push $Ndd77fa0
  Add {
   channels rgb
   value {{parent.Sample.rgbSample/-1} {parent.Sample.rgbSample/-1} {parent.Sample.rgbSample/-1} 0}
@@ -831,13 +831,13 @@ push $Nb077430
    xpos -110
    ypos -192
   }
-set Nb0d9c40 [stack 0]
+set Nddda9c0 [stack 0]
   Dot {
    name Dot1
    xpos -76
    ypos -161
   }
-set Nb0deff0 [stack 0]
+set Ndddfd50 [stack 0]
   Expression {
    expr3 a>0
    name ExpressionA
@@ -850,8 +850,8 @@ set Nb0deff0 [stack 0]
    xpos -220
    ypos -112
   }
-push $Nb0deff0
-push $Nb0d9c40
+push $Ndddfd50
+push $Nddda9c0
   Remove {
    name RemoveAll
    xpos 34
@@ -892,7 +892,7 @@ push $Nb0d9c40
    xpos 34
    ypos -116
   }
-push $Nb0deff0
+push $Ndddfd50
   Merge2 {
    inputs 2+1
    operation copy
@@ -943,7 +943,7 @@ push $Nb0deff0
   xpos 34
   ypos 469
  }
-set Nb179680 [stack 0]
+set Nc01eba0 [stack 0]
  BlinkScript {
   recompileCount 6
   ProgramGroup 1
@@ -964,7 +964,7 @@ set Nb179680 [stack 0]
   xpos 990
   ypos 615
  }
-push $Nb179680
+push $Nc01eba0
  BlinkScript {
   recompileCount 5
   ProgramGroup 1
@@ -986,7 +986,7 @@ push $Nb179680
   xpos 880
   ypos 614
  }
-push $Nb179680
+push $Nc01eba0
  BlinkScript {
   recompileCount 16
   ProgramGroup 1
@@ -1008,7 +1008,7 @@ push $Nb179680
   xpos 770
   ypos 615
  }
-push $Nb179680
+push $Nc01eba0
  BlinkScript {
   recompileCount 16
   KernelDescription "2 \"VoronoiNoise\" iterate pixelWise b5254626cd5df5ff862ca8817e176a1b623927081c48080950344a31c6d0cf9e 2 \"position_pass\" Read Point \"dst\" Write Point 1 \"Range\" Float 1 AABAQA== 1 \"range\" 1 1 2 \"fRange\" Float 1 1 AAAAAA== \"iRange\" Int 1 1 AAAAAA=="
@@ -1029,7 +1029,7 @@ push $Nb179680
   xpos 658
   ypos 615
  }
-push $Nb179680
+push $Nc01eba0
  BlinkScript {
   recompileCount 18
   KernelDescription "2 \"EuclidianNoise\" iterate pixelWise dbf5e83c1b46011f2fc8e7b81e879b31ef00feccf8756cfeccd2d9e033e58784 2 \"position_pass\" Read Point \"dst\" Write Point 1 \"Range\" Float 1 AABAQA== 1 \"range\" 1 1 2 \"fRange\" Float 1 1 AAAAAA== \"iRange\" Int 1 1 AAAAAA=="
@@ -1051,7 +1051,7 @@ push $Nb179680
   xpos 550
   ypos 615
  }
-push $Nb179680
+push $Nc01eba0
  Expression {
   channel0 rgba
   expr0 "sin( atan(r, g) *this.rays+this.rays_seed)"
@@ -1073,7 +1073,7 @@ push $Nb179680
   xpos 400
   ypos 606
  }
-push $Nb179680
+push $Nc01eba0
  Expression {
   channel0 rgba
   expr0 "sin(sqrt( r*r + g*g + b*b)+this.rings_seed)"
@@ -1093,7 +1093,7 @@ push $Nb179680
   xpos 259
   ypos 605
  }
-push $Nb179680
+push $Nc01eba0
  Expression {
   channel0 rgba
   expr0 "pow(turbulence (r, g, b, this.octaves, this.lacunarity, this.gain), 1/this.gamma)"
@@ -1113,7 +1113,7 @@ push $Nb179680
   addUserKnob {7 gamma}
   gamma {{parent.gamma}}
  }
-push $Nb179680
+push $Nc01eba0
  Expression {
   channel0 rgba
   expr0 "pow((fBm (r, g, b, this.octaves, this.lacunarity, this.gain) +1)/2, 1/this.gamma)"
@@ -1154,7 +1154,7 @@ push $Nb179680
   xpos 0
   ypos 885
  }
-push $Nb07c2d0
+push $Ndd7d050
  NoOp {
   name SampleXY
   knobChanged "\nn = nuke.thisNode()\nrgbNode = nuke.toNode('Sample')\nposition = n.knob('Position2d').getValue()\npositionX = position\[0]\npositionY = position\[-1]\nrSample = n.sample(\"r\",positionX,positionY)\ngSample = n.sample(\"g\",positionX,positionY)\nbSample = n.sample(\"b\",positionX,positionY)\nrgbNode.knob('rgbSample').setValue(\[rSample, gSample, bSample])\n"
@@ -1194,7 +1194,7 @@ Shuffle2 {
  xpos 401
  ypos -9
 }
-push $Naa28bf0
+push $Nc234f90
 Dot {
  name Dot3
  xpos 16
@@ -1207,7 +1207,7 @@ Constant {
  xpos 64
  ypos -71
 }
-push $Naa28bf0
+push $Nc234f90
 Group {
  name P_Noise_Advanced3
  knobChanged "\nn = nuke.thisNode()\ntype = n\['noisetype'].value()\nblock = n\['Trunc'].getValue()\nVis = \[]\nHide = \[]\nif type in ('fBm', 'turbulent'):\n    Vis.extend(\['octaves', 'lacunarity', 'gain', 'gamma'])\n    Hide.extend(\['rays', 'range', 'invert', 'ringsSeed', 'raysSeed', 'gammaNormalize'])   \nelif type == 'p_rings':\n    Vis.extend(\['ringsSeed', 'gammaNormalize'])\n    Hide.extend(\['rays', 'range', 'invert', 'octaves', 'lacunarity', 'gain', 'gamma', 'raysSeed'])\nelif type == 'p_rays':\n    Vis.extend(\['rays', 'raysSeed', 'gammaNormalize'])\n    Hide.extend(\['range', 'invert', 'octaves', 'lacunarity', 'gain', 'gamma', 'ringsSeed'])\nelif type in ('Euclidian', 'Voronoi', 'Manhattan', 'ChebyShev'):\n    Vis.extend(\['range', 'gammaNormalize'])\n    Hide.extend(\['rays', 'invert', 'octaves', 'lacunarity', 'gain', 'gamma', 'ringsSeed', 'raysSeed'])\nelif type == 'Worley':\n    Vis.extend(\['invert', 'gammaNormalize'])\n    Hide.extend(\['rays', 'range', 'octaves', 'lacunarity', 'gain', 'gamma', 'ringsSeed', 'raysSeed'])\nfor r in Vis: n\[r].setVisible(True)\nfor x in Hide: n\[x].setVisible(False)\n\nif block == True:\n    n\['truncSize'].setVisible(True)\nelse:\n    n\['truncSize'].setVisible(False)\n"
@@ -1310,13 +1310,13 @@ Group {
   xpos 34
   ypos 66
  }
-set Nb2ec340 [stack 0]
+set Ndf23e30 [stack 0]
  Dot {
   name Dot4
   xpos -130
   ypos 66
  }
-set Nb2f13f0 [stack 0]
+set Ndf28ee0 [stack 0]
  Dot {
   name Dot3
   xpos -292
@@ -1338,7 +1338,7 @@ set Nb2f13f0 [stack 0]
   xpos 265
   ypos 200
  }
-push $Nb2ec340
+push $Ndf23e30
  Add {
   channels rgb
   value {{parent.Sample.rgbSample/-1} {parent.Sample.rgbSample/-1} {parent.Sample.rgbSample/-1} 0}
@@ -1392,13 +1392,13 @@ push $Nb2ec340
    xpos -110
    ypos -192
   }
-set Nb34ee60 [stack 0]
+set Ndf86950 [stack 0]
   Dot {
    name Dot1
    xpos -76
    ypos -161
   }
-set Nb354210 [stack 0]
+set Ndf8bce0 [stack 0]
   Expression {
    expr3 a>0
    name ExpressionA
@@ -1411,8 +1411,8 @@ set Nb354210 [stack 0]
    xpos -220
    ypos -112
   }
-push $Nb354210
-push $Nb34ee60
+push $Ndf8bce0
+push $Ndf86950
   Remove {
    name RemoveAll
    xpos 34
@@ -1453,7 +1453,7 @@ push $Nb34ee60
    xpos 34
    ypos -116
   }
-push $Nb354210
+push $Ndf8bce0
   Merge2 {
    inputs 2+1
    operation copy
@@ -1504,7 +1504,7 @@ push $Nb354210
   xpos 34
   ypos 469
  }
-set Nb3eedb0 [stack 0]
+set Ne025e60 [stack 0]
  BlinkScript {
   recompileCount 6
   ProgramGroup 1
@@ -1525,7 +1525,7 @@ set Nb3eedb0 [stack 0]
   xpos 990
   ypos 615
  }
-push $Nb3eedb0
+push $Ne025e60
  BlinkScript {
   recompileCount 5
   ProgramGroup 1
@@ -1547,7 +1547,7 @@ push $Nb3eedb0
   xpos 880
   ypos 614
  }
-push $Nb3eedb0
+push $Ne025e60
  BlinkScript {
   recompileCount 16
   ProgramGroup 1
@@ -1569,7 +1569,7 @@ push $Nb3eedb0
   xpos 770
   ypos 615
  }
-push $Nb3eedb0
+push $Ne025e60
  BlinkScript {
   recompileCount 16
   KernelDescription "2 \"VoronoiNoise\" iterate pixelWise b5254626cd5df5ff862ca8817e176a1b623927081c48080950344a31c6d0cf9e 2 \"position_pass\" Read Point \"dst\" Write Point 1 \"Range\" Float 1 AABAQA== 1 \"range\" 1 1 2 \"fRange\" Float 1 1 AAAAAA== \"iRange\" Int 1 1 AAAAAA=="
@@ -1590,7 +1590,7 @@ push $Nb3eedb0
   xpos 658
   ypos 615
  }
-push $Nb3eedb0
+push $Ne025e60
  BlinkScript {
   recompileCount 18
   KernelDescription "2 \"EuclidianNoise\" iterate pixelWise dbf5e83c1b46011f2fc8e7b81e879b31ef00feccf8756cfeccd2d9e033e58784 2 \"position_pass\" Read Point \"dst\" Write Point 1 \"Range\" Float 1 AABAQA== 1 \"range\" 1 1 2 \"fRange\" Float 1 1 AAAAAA== \"iRange\" Int 1 1 AAAAAA=="
@@ -1612,7 +1612,7 @@ push $Nb3eedb0
   xpos 550
   ypos 615
  }
-push $Nb3eedb0
+push $Ne025e60
  Expression {
   channel0 rgba
   expr0 "sin( atan(r, g) *this.rays+this.rays_seed)"
@@ -1634,7 +1634,7 @@ push $Nb3eedb0
   xpos 400
   ypos 606
  }
-push $Nb3eedb0
+push $Ne025e60
  Expression {
   channel0 rgba
   expr0 "sin(sqrt( r*r + g*g + b*b)+this.rings_seed)"
@@ -1654,7 +1654,7 @@ push $Nb3eedb0
   xpos 259
   ypos 605
  }
-push $Nb3eedb0
+push $Ne025e60
  Expression {
   channel0 rgba
   expr0 "pow(turbulence (r, g, b, this.octaves, this.lacunarity, this.gain), 1/this.gamma)"
@@ -1674,7 +1674,7 @@ push $Nb3eedb0
   addUserKnob {7 gamma}
   gamma {{parent.gamma}}
  }
-push $Nb3eedb0
+push $Ne025e60
  Expression {
   channel0 rgba
   expr0 "pow((fBm (r, g, b, this.octaves, this.lacunarity, this.gain) +1)/2, 1/this.gamma)"
@@ -1715,7 +1715,7 @@ push $Nb3eedb0
   xpos 0
   ypos 885
  }
-push $Nb2f13f0
+push $Ndf28ee0
  NoOp {
   name SampleXY
   knobChanged "\nn = nuke.thisNode()\nrgbNode = nuke.toNode('Sample')\nposition = n.knob('Position2d').getValue()\npositionX = position\[0]\npositionY = position\[-1]\nrSample = n.sample(\"r\",positionX,positionY)\ngSample = n.sample(\"g\",positionX,positionY)\nbSample = n.sample(\"b\",positionX,positionY)\nrgbNode.knob('rgbSample').setValue(\[rSample, gSample, bSample])\n"
@@ -1755,7 +1755,7 @@ Shuffle2 {
  xpos 139
  ypos 1
 }
-push $Naa42720
+push $Nc2c84d0
 Dot {
  name Dot1
  xpos -204
@@ -1778,7 +1778,7 @@ Dot {
  xpos -409
  ypos 183
 }
-push $Naa28bf0
+push $Nc234f90
 Dot {
  name Dot2
  xpos -79
@@ -1787,10 +1787,16 @@ Dot {
 N_RayReflect {
  inputs 8
  name N_RayReflect
- selected true
  xpos 139
  ypos 179
  in N
  material_properties 1
  irradiance_sampling 1
+}
+Viewer {
+ frame_range 1-100
+ monitorOutOutputTransform rec709
+ name Viewer1
+ xpos 139
+ ypos 205
 }

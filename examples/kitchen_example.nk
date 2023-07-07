@@ -1,0 +1,371 @@
+#! /usr/local/Nuke13.2v2/libnuke-13.2.2.so -nx
+#write_info Write1 file:"" format:"1024 2445 1" chans:":rgba.red:rgba.green:rgba.blue:" framerange:"1 100" fps:"0" colorspace:"default (sRGB)" datatype:"8 bit" transfer:"unknown" views:"main" colorManagement:"Nuke"
+version 13.2 v2
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="1976" y="27" w="3784" h="2096" maximized="1" screen="0">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="3121" stretch="1"/>
+            <splitter orientation="2">
+                <split size="1205"/>
+                <dock id="" activePageId="Viewer.1">
+                    <page id="Viewer.1"/>
+                </dock>
+                <split size="848"/>
+                <dock id="" activePageId="DAG.1" focus="true">
+                    <page id="DAG.1"/>
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                </dock>
+            </splitter>
+            <split size="615"/>
+            <dock id="" activePageId="Properties.1">
+                <page id="Properties.1"/>
+                <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name /home/ob1/software/nuke/dev/normal_ray_reflect/examples/kitchen_example.nk
+ format "2048 1556 0 0 2048 1556 1 2K_Super_35(full-ap)"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement Nuke
+ workingSpaceLUT linear
+ monitorLut sRGB
+ monitorOutLUT rec709
+ int8Lut sRGB
+ int16Lut sRGB
+ logLut Cineon
+ floatLut linear
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode1
+ tile_color 0x883277ff
+ label "Replace me with an HDRI\n\ntry: https://polyhaven.com/a/ninomaru_teien for example\n"
+ xpos -414
+ ypos -429
+ bdwidth 292
+ bdheight 205
+}
+Axis3 {
+ inputs 0
+ translate {0 55.90000153 306.5}
+ rotate {-10 20 0}
+ name Axis1
+ xpos -66
+ ypos -488
+}
+Camera3 {
+ translate {0 97 0}
+ focal 10.6
+ name Camera1
+ xpos -66
+ ypos -400
+}
+Dot {
+ name Dot5
+ xpos -42
+ ypos -278
+}
+set N31ba00d0 [stack 0]
+Dot {
+ name Dot2
+ xpos -42
+ ypos -195
+}
+set Nb7c0d3c0 [stack 0]
+Dot {
+ name Dot16
+ xpos -42
+ ypos -48
+}
+set Nb7450050 [stack 0]
+Dot {
+ name Dot6
+ xpos -42
+ ypos 78
+}
+set Nd4206260 [stack 0]
+Dot {
+ name Dot14
+ xpos -42
+ ypos 211
+}
+CheckerBoard2 {
+ inputs 0
+ format "2048 1024 0 0 2048 1024 1 2K_LatLong"
+ name CheckerBoard1
+ xpos -218
+ ypos -351
+}
+Dot {
+ name Dot1
+ xpos -184
+ ypos -136
+}
+set Nb7bfb0e0 [stack 0]
+Dot {
+ name Dot12
+ xpos -184
+ ypos -5
+}
+set N96e6140 [stack 0]
+Dot {
+ name Dot4
+ xpos -184
+ ypos 133
+}
+set Na5207c0 [stack 0]
+Dot {
+ name Dot13
+ xpos -184
+ ypos 255
+}
+set N98edb80 [stack 0]
+push $N31ba00d0
+ReadGeo2 {
+ inputs 0
+ file /home/ob1/software/nuke/assets/Kitchen_set/Kitchen_set.usd
+ localizationPolicy off
+ scene_graph {{0} version: 1 + /Kitchen_set}
+ name ReadGeo1
+ xpos 110
+ ypos -373
+}
+push 0
+add_layer {P P.x P.y P.z}
+add_layer {N N.x N.y N.z}
+ScanlineRender {
+ inputs 3
+ conservative_shader_sampling false
+ motion_vectors_type distance
+ output_shader_vectors true
+ P_channel P
+ N_channel N
+ name ScanlineRender1
+ xpos 110
+ ypos -282
+}
+Dot {
+ name Dot3
+ xpos 144
+ ypos -230
+}
+set Nb7493510 [stack 0]
+Dot {
+ name Dot9
+ xpos 144
+ ypos -99
+}
+set Nb742ea30 [stack 0]
+Dot {
+ name Dot8
+ xpos 144
+ ypos 50
+}
+set Na62dac0 [stack 0]
+Dot {
+ name Dot15
+ xpos 144
+ ypos 177
+}
+N_RayReflect {
+ inputs 3
+ name N_RayReflect4
+ xpos 241
+ ypos 251
+ in N
+ ray_samples 100
+ material_properties 1
+ use_diffuse_input false
+ use_specular_input false
+ specular 0
+ use_specular_roughness_input false
+ use_transmission_input false
+ transmission 1
+ use_transmission_roughness_input false
+ irradiance_sampling 1
+}
+push $Nd4206260
+push $Na5207c0
+push $Na62dac0
+N_RayReflect {
+ inputs 3
+ name N_RayReflect3
+ xpos 239
+ ypos 129
+ in N
+ ray_samples 100
+ material_properties 1
+ use_diffuse_input false
+ use_specular_input false
+ specular 1
+ use_specular_roughness_input false
+ use_transmission_input false
+ use_transmission_roughness_input false
+ irradiance_sampling 1
+}
+push $Nb7450050
+push $N96e6140
+push $Nb742ea30
+N_RayReflect {
+ inputs 3
+ name N_RayReflect2
+ xpos 238
+ ypos -9
+ in N
+ ray_samples 100
+ material_properties 1
+ use_diffuse_input false
+ use_specular_input false
+ specular 1
+ specular_roughness 0.19
+ use_specular_roughness_input false
+ use_transmission_input false
+ use_transmission_roughness_input false
+ irradiance_sampling 1
+}
+push $Nb7c0d3c0
+push $Nb7bfb0e0
+push $Nb7493510
+N_RayReflect {
+ inputs 3
+ name N_RayReflect
+ xpos 248
+ ypos -140
+ in N
+ ray_samples 100
+ material_properties 1
+ use_diffuse_input false
+ use_specular_input false
+ specular 0
+ specular_roughness 0.19
+ use_specular_roughness_input false
+ use_transmission_input false
+ use_transmission_roughness_input false
+ irradiance_sampling 1
+}
+Dot {
+ name Dot7
+ xpos 442
+ ypos -11
+}
+ContactSheet {
+ inputs 4
+ width 2048
+ height 1556
+ rows 2
+ columns 2
+ center true
+ name ContactSheet2
+ xpos 408
+ ypos 251
+}
+Dot {
+ name Dot18
+ xpos 442
+ ypos 380
+}
+push $Nb7493510
+Shuffle2 {
+ fromInput1 {{0} B}
+ in1 N
+ fromInput2 {{0} B}
+ mappings "4 black -1 -1 rgba.alpha 0 3 N.x 0 0 rgba.red 0 0 N.y 0 1 rgba.green 0 1 N.z 0 2 rgba.blue 0 2"
+ name Shuffle1
+ xpos 549
+ ypos -234
+}
+Dot {
+ name Dot17
+ xpos 583
+ ypos 392
+}
+push $N98edb80
+Dot {
+ name Dot10
+ xpos -184
+ ypos 468
+}
+ContactSheet {
+ inputs 3
+ width 1024
+ height 2700
+ columns 1
+ center true
+ roworder TopBottom
+ name ContactSheet1
+ xpos 549
+ ypos 464
+}
+Text2 {
+ font_size_toolbar 100
+ font_width_toolbar 100
+ font_height_toolbar 100
+ message +
+ old_message {{43}
+   }
+ box {482 1817.5 551.5 1918.5}
+ transforms {{0 2}
+   }
+ cursor_position 1
+ center {1024 778}
+ cursor_initialised true
+ autofit_bbox false
+ initial_cursor_position {{495 1952.5}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+   }
+ name Text1
+ xpos 549
+ ypos 490
+}
+Text2 {
+ font_size_toolbar 100
+ font_width_toolbar 100
+ font_height_toolbar 100
+ message "\n="
+ old_message {{10 61}
+   }
+ box {{parent.Text1.box.x x1 493} 857.5 {parent.Text1.box.r x1 551} 1058.5}
+ transforms {{0 2}
+   }
+ cursor_position 1
+ center {1024 778}
+ cursor_initialised true
+ autofit_bbox false
+ initial_cursor_position {{0 3072}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+   }
+ name Text2
+ xpos 549
+ ypos 516
+}
+Crop {
+ box {0 60.93999863 1024 2506.040039}
+ reformat true
+ crop false
+ name Crop1
+ xpos 549
+ ypos 542
+}
+Write {
+ file_type png
+ checkHashOnRead false
+ version 1
+ name Write1
+ xpos 549
+ ypos 636
+}
