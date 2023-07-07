@@ -8,6 +8,8 @@ This BlinkScript Gizmo allows you to perform single-bounce raytracing, only requ
   <img src="https://github.com/obulka/normal_ray_reflect/assets/21975584/ddf6d475-7ec0-4f21-bbef-50c371dcfbd0" alt="animated" />
 </p>
 
+![test](https://github.com/obulka/normal_ray_reflect/assets/21975584/e0035c3c-01de-4ef9-8ec3-9331142fb27d)
+
 Specular surfaces, as well as diffuse, and even transmissive, are supported. These surface properties can be a single constant value, or driven by input images to create materials as seen in the above turntable.
 
 ## Setup
@@ -77,3 +79,4 @@ Simply clone/download this repo and add the following line to your `init.py`: `n
 
 ## References
 - Examples courtesy of Riley Gray
+- HDRI from Greg Zaal at https://polyhaven.com/a/ninomaru_teien
